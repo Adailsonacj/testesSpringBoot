@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/prMaven.iml" filepath="$PROJECT_DIR$/prMaven.iml" />
+      <module fileurl="file://$PROJECT_DIR$/testesSpringBoot.iml" filepath="$PROJECT_DIR$/testesSpringBoot.iml" />
     </modules>
   </component>
 </project>

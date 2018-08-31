@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="prMaven" />
+        <module name="testesSpringBoot" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="prMaven" target="1.8" />
+      <module name="testesSpringBoot" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
