@@ -1,21 +1,39 @@
 package hello;
 
-import bd.database;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.concurrent.atomic.AtomicLong;
+import model.Produto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import repository.ProdutoRepository;
+import javax.validation.Valid;
 
 @RestController
-public class GreetingController {
+@RequestMapping("/produto")
+public class ProdutoController {
 
-    private static final String template = "Hello, %s!";
-    private final AtomicLong counter = new AtomicLong();
+    //private static final String template = "Hello, %s!";
+    //private final AtomicLong counter = new AtomicLong();
+    @Autowired
+    private ProdutoRepository produtoRepository;
 
+    private Iterable<Produto> listaAllProdutos;
+
+    @GetMapping(produces = "application/json")
+    public @ResponseBody Iterable<Produto> listaProdutos(){
+        listaAllProdutos = produtoRepository.findAll();
+        return listaAllProdutos;
+    }
+
+    @PostMapping
+    public Produto cadastroProduto(@RequestBody @Valid Produto produto){
+        return produtoRepository.save(produto);
+    }
+
+    @DeleteMapping
+    public Produto deletaProduto(@RequestBody @Valid Produto produto){
+        produtoRepository.delete(produto);
+        return produto;
+    }
+    /*
     @RequestMapping("/greeting")
     public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
         return new Greeting(counter.incrementAndGet(),
@@ -45,4 +63,5 @@ public class GreetingController {
 
         return "Funalo adicionado";
     }
+    */
 }
