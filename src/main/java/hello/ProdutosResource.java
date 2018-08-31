@@ -3,33 +3,39 @@ package hello;
 import model.Produto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import repository.ProdutoRepository;
+import repository.Produtos;
+
 import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/produto")
-public class ProdutoController {
+public class ProdutosResource {
 
     //private static final String template = "Hello, %s!";
     //private final AtomicLong counter = new AtomicLong();
+    private Produtos produtoRepository;
+
     @Autowired
-    private ProdutoRepository produtoRepository;
+    public ProdutosResource(Produtos produtoRepository) {
+        this.produtoRepository = produtoRepository;
+    }
 
     private Iterable<Produto> listaAllProdutos;
 
     @GetMapping(produces = "application/json")
-    public @ResponseBody Iterable<Produto> listaProdutos(){
+    public @ResponseBody
+    Iterable<Produto> listaProdutos() {
         listaAllProdutos = produtoRepository.findAll();
         return listaAllProdutos;
     }
 
     @PostMapping
-    public Produto cadastroProduto(@RequestBody @Valid Produto produto){
+    public Produto cadastroProduto(@RequestBody @Valid Produto produto) {
         return produtoRepository.save(produto);
     }
 
     @DeleteMapping
-    public Produto deletaProduto(@RequestBody @Valid Produto produto){
+    public Produto deletaProduto(@RequestBody @Valid Produto produto) {
         produtoRepository.delete(produto);
         return produto;
     }
